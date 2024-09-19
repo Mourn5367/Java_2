@@ -9,6 +9,7 @@ public class Student
 
     Student(int _id, String _name)
     {
+        ++count;
         id = _id;
         name = _name;
     }
