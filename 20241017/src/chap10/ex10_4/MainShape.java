@@ -19,10 +19,18 @@ public class MainShape
 
         for(int i = 0; i < shapes.length; i++)
         {
-            System.out.printf("Index Number %d name Shape : %s\n",i+1,shapes[i].name);
+            System.out.printf("Index Number %d Shape : %s\n",i+1,shapes[i].name);
         }
+        ArrayList<Shape> alShape = new ArrayList<>();
 
+        alShape.add(s);
+        alShape.add(t);
+        alShape.add(c);
 
+        for (int i = 0; i < alShape.size(); i++)
+        {
+            System.out.printf("Index Number %d Shape : %s\n",i+1,alShape.get(i).name);
+        }
 
     }
 }
