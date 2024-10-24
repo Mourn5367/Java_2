@@ -61,6 +61,10 @@ public class BookService
         }
         System.out.println();
         int userInput = sc.nextInt();
-        BDL.getDTOList().remove(userInput);
+        BDL.getDTOList().remove(userInput-1);
+    }
+    public void editBook(Scanner sc, BookDTOList BDL)
+    {
+        System.out.println("수정할 도서를 선택하십시오.");
     }
 }

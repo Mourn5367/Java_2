@@ -47,7 +47,7 @@ public class BookManageController
                     currentBMSState = BMSState.SELECT_MENU;
                     break;
                 case SELECT_MENU:
-                    System.out.print("원하시는 메뉴를 선택하여 주세요!: ");
+                    System.out.print("원하시는 메뉴를 선택하여 주세요 !: ");
                     int tem = sc.nextInt();
                     currentMenu = Menus[tem-1];
                     switch(currentMenu)
@@ -61,9 +61,12 @@ public class BookManageController
                         break;
 
                         case EDIT_BOOK:
+
                         break;
 
                         case DELETE_BOOK:
+                            bookService.deleteBook(sc,bookDTOList);
+                            currentBMSState = BMSState.VIEW_MENU;
                         break;
 
                         case PRINT_BOOK:
