@@ -18,6 +18,14 @@ public class BookService
                 if (i == 0) {
                     tmpBookDTO.setISBN(sc.nextLong());
                     sc.nextLine(); // 버퍼 비움
+                    for( BookDTO book : BDL.getDTOList())
+                    {
+                        if (book.getISBN() == tmpBookDTO.getISBN())
+                        {
+                            System.out.println("중복된 ISBN입니다.");
+                            return;
+                        }
+                    }
                 } else if (i == 1)
                     tmpBookDTO.setBookName(sc.nextLine());
                 else if (i == 2)
@@ -74,7 +82,7 @@ public class BookService
         for(BookDTO book : BDL.getDTOList())
         {
             if( i %3 == 0)
-                System.out.printf("\n%d번 책 %s\t", i, book.getBookName());
+                System.out.printf("%d번 책 %s\n", i, book.getBookName());
             else  System.out.printf("%d번 책 %s\t", i, book.getBookName());
             i++;
         }
@@ -202,7 +210,6 @@ public class BookService
                             BMV.viewBookAll(BDL);
                             break;
                     }
-                    break;
                 }
             }
             if (answer == 1 && !isSearch) {
