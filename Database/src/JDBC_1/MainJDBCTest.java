@@ -1,3 +1,5 @@
+package JDBC_1;
+
 import java.sql.Connection;
 
 public class MainJDBCTest

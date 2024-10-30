@@ -1,4 +1,4 @@
-import oracle.jdbc.driver.OracleDriver;
+package JDBC_1;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
