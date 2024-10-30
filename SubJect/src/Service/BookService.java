@@ -1,7 +1,7 @@
 package Service;
 import DTO.BookDTO;
 import DTO.BookDTOList;
-
+import View.BookManageView;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -63,74 +63,58 @@ public class BookService
         int userInput = sc.nextInt();
         BDL.getDTOList().remove(userInput-1);
     }
-    public void editBook(Scanner sc, BookDTOList BDL)
+    public void editBook(Scanner sc, BookDTO bookDTO)
     {
         System.out.println("수정할 도서를 선택하십시오.");
     }
-    public void bookSearch(Scanner sc, BookDTOList BDL, int manageValue)
+    public void bookSearch(Scanner sc, BookDTOList BDL, int manageValue,BookManageView BMV)
     {
         System.out.println("1. 이름 검색, 2. ISBN 검색");
         int answer = sc.nextInt();
+        boolean isSearch = false;
         sc.nextLine();//버퍼 비움
-        if (answer == 1)
-        {
+        String bookName = "";
+        long bookISBN = 0;
+        if (answer == 1) {
             System.out.println("책 이름을 입력해 주세요.");
-            String bookName = sc.nextLine();
-            for(BookDTO bookDTO : BDL.getDTOList())
-            {
-                if (bookDTO.getBookName().equals(bookName))
-                {
-
-                    switch(manageValue) // 조회 2 수정 3 삭제 4 출력 5
-                    {
-                        case 2:
-
-                            break;
-                        case 3:
-                            break;
-                        case 4:
-                            break;
-                        case 5:
-                    }
-                    break;
-                }
-                else
-                {
-                    System.out.printf("도서정보시스템에는 %s 책은 없습니다.",bookName);
-                }
-            }
+            bookName = sc.nextLine();
         }
         else if (answer == 2)
         {
             System.out.println("책 ISBN을 입력해 주세요.");
-            long bookISBN = sc.nextLong();
+            bookISBN = sc.nextLong();
             sc.nextLine();
-            for(BookDTO bookDTO : BDL.getDTOList())
+        }
+        for(BookDTO bookDTO : BDL.getDTOList())
+        {
+            if ((answer == 1 && bookDTO.getBookName().equals(bookName)) || (answer == 2 && bookDTO.getISBN() == bookISBN))
             {
-                if (bookDTO.getISBN() == bookISBN)
+                isSearch = true;
+                switch(manageValue) // 2 조회  3 수정 4 삭제 5 출력
                 {
-                    switch(manageValue) // 조회 2 수정 3 삭제 4 출력 5
-                    {
-                        case 2:
-
-                            break;
-                        case 3:
-                            break;
-                        case 4:
-                            break;
-                        case 5:
-                    }
-                    break;
+                    case 2:
+                        BMV.viewBookOne(bookDTO);
+                        break;
+                    case 3:
+                        editBook(sc, bookDTO);
+                        break;
+                    case 4:
+                        deleteBook(sc,BDL);
+                        break;
+                    case 5:
+                        BMV.viewBookAll(BDL);
+                        break;
                 }
-                else
-                {
-                    System.out.printf("도서정보시스템에는 %s 책은 없습니다.",bookName);
-                }
+                break;
             }
         }
-        else
+        if (answer == 1 && !isSearch)
         {
-
+            System.out.printf("도서정보시스템에는 책 이름이 %s 책은 없습니다.",bookName);
+        }
+        else if (answer == 2 && !isSearch)
+        {
+            System.out.printf("도서정보시스템에는 ISBN이 %d인 책은 없습니다.",bookISBN);
         }
     }
 }

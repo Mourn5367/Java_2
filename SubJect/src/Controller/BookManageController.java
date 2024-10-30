@@ -10,7 +10,7 @@ import View.BookManageView;
 public class BookManageController
 {
     private final String[] initMenu =
-            {"도서정보추가","조회","수정/변경","삭제","출력"};
+            {"도서정보추가","조회","수정/변경","삭제","출력","종료"};
     private enum MENU
     {
         ADD_BOOK,
@@ -18,13 +18,12 @@ public class BookManageController
         EDIT_BOOK,
         DELETE_BOOK,
         PRINT_BOOK,
+        EXIT_MENU
     }
     private enum BMSState
     {
-        VIEW_MENU,
         SELECT_MENU,
         PROCESSING_MENU,
-        ESCAPE,
         OUT,
     }
     public static void main(String[] args)
@@ -34,7 +33,7 @@ public class BookManageController
         BookService bookService = new BookService();
         Scanner sc = new Scanner(System.in);
         BookDTOList bookDTOList = new BookDTOList();
-        BMSState currentBMSState = BMSState.VIEW_MENU;
+        BMSState currentBMSState = BMSState.SELECT_MENU;
         MENU[] Menus = MENU.values();
         MENU currentMenu;
         System.out.println("===도서관리시스템에 접속하였습니다.===");
@@ -42,43 +41,39 @@ public class BookManageController
         {
             switch(currentBMSState)
             {
-                case VIEW_MENU:
-                    bookManageController.viewMenu();
-                    currentBMSState = BMSState.SELECT_MENU;
-                    break;
+
                 case SELECT_MENU:
+                    bookManageController.viewMenu();
                     System.out.print("원하시는 메뉴를 선택하여 주세요 !: ");
                     int tem = sc.nextInt();
                     currentMenu = Menus[tem-1];
+
                     switch(currentMenu)
                     {
                         case ADD_BOOK:
                             bookService.newBook(sc,bookDTOList);
-                            currentBMSState = BMSState.VIEW_MENU;
                         break;
 
-                        case CHECK_BOOK:
-                        break;
-
+                        case CHECK_BOOK :
                         case EDIT_BOOK:
-
-                        break;
-
                         case DELETE_BOOK:
-                            bookService.deleteBook(sc,bookDTOList);
-                            currentBMSState = BMSState.VIEW_MENU;
-                        break;
-
+//                            bookService.deleteBook(sc,bookDTOList);
+//                            currentBMSState = BMSState.VIEW_MENU;
                         case PRINT_BOOK:
-                            bookManageView.viewBookAll(bookDTOList);
-                            currentBMSState = BMSState.VIEW_MENU;
+//                            bookManageView.viewBookAll(bookDTOList);
+//                            currentBMSState = BMSState.VIEW_MENU;
+                            bookService.bookSearch(sc,bookDTOList,tem,bookManageView);
                         break;
+                        case EXIT_MENU:
+                            currentBMSState = BMSState.OUT;
                     }
                     break;
                 case OUT:
+                    System.out.println("이용해주셔서 감사합니다.");
                     return;
             }
         }
+
 //        BookDTO tmp = bs.newBook(sc);
 //        if (tmp == null)
 //        {

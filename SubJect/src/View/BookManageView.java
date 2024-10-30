@@ -42,4 +42,9 @@ public class BookManageView
         }
         System.out.printf("출력한 총 출력 개수는 %d개 입니다.",i);
     }
+    public void viewBookOne(BookDTO book)
+    {
+        System.out.printf("책의 이름은:\t%s\nISBN:\t%s\n작가:\t%s\n출판사:\t%s\n가격:\t%d\n\n",
+                book.getBookName(),book.getISBN(),book.getAuthor(),book.getPublisher(), book.getPrice());
+    }
 }
