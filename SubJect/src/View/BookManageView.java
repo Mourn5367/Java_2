@@ -27,7 +27,7 @@ public class BookManageView
     }
     public void viewBookAll(BookDTOList BDL)
     {
-        ;
+
         int i = 0;
         for (BookDTO book : BDL.getDTOList())
         {
@@ -40,5 +40,6 @@ public class BookManageView
 //            viewBookPublish(in);
 //            viewBookPrice(in);
         }
+        System.out.printf("출력한 총 출력 개수는 %d개 입니다.",i);
     }
 }

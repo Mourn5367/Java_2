@@ -67,4 +67,70 @@ public class BookService
     {
         System.out.println("수정할 도서를 선택하십시오.");
     }
+    public void bookSearch(Scanner sc, BookDTOList BDL, int manageValue)
+    {
+        System.out.println("1. 이름 검색, 2. ISBN 검색");
+        int answer = sc.nextInt();
+        sc.nextLine();//버퍼 비움
+        if (answer == 1)
+        {
+            System.out.println("책 이름을 입력해 주세요.");
+            String bookName = sc.nextLine();
+            for(BookDTO bookDTO : BDL.getDTOList())
+            {
+                if (bookDTO.getBookName().equals(bookName))
+                {
+
+                    switch(manageValue) // 조회 2 수정 3 삭제 4 출력 5
+                    {
+                        case 2:
+
+                            break;
+                        case 3:
+                            break;
+                        case 4:
+                            break;
+                        case 5:
+                    }
+                    break;
+                }
+                else
+                {
+                    System.out.printf("도서정보시스템에는 %s 책은 없습니다.",bookName);
+                }
+            }
+        }
+        else if (answer == 2)
+        {
+            System.out.println("책 ISBN을 입력해 주세요.");
+            long bookISBN = sc.nextLong();
+            sc.nextLine();
+            for(BookDTO bookDTO : BDL.getDTOList())
+            {
+                if (bookDTO.getISBN() == bookISBN)
+                {
+                    switch(manageValue) // 조회 2 수정 3 삭제 4 출력 5
+                    {
+                        case 2:
+
+                            break;
+                        case 3:
+                            break;
+                        case 4:
+                            break;
+                        case 5:
+                    }
+                    break;
+                }
+                else
+                {
+                    System.out.printf("도서정보시스템에는 %s 책은 없습니다.",bookName);
+                }
+            }
+        }
+        else
+        {
+
+        }
+    }
 }
