@@ -47,4 +47,15 @@ public class BookManageView
         System.out.printf("책의 이름은:\t%s\nISBN:\t%s\n작가:\t%s\n출판사:\t%s\n가격:\t%d\n\n",
                 book.getBookName(),book.getISBN(),book.getAuthor(),book.getPublisher(), book.getPrice());
     }
+    public void threePerBook(BookDTOList BDL)
+    {
+        int i = 1;
+        for(BookDTO book : BDL.getDTOList())
+        {
+            if( i %3 == 0)
+                System.out.printf("%d번 책 %s\n", i, book.getBookName());
+            else  System.out.printf("%d번 책 %s\t", i, book.getBookName());
+            i++;
+        }
+    }
 }

@@ -75,17 +75,10 @@ public class BookService
             System.out.println("잘못된 접근입니다.");
         }
     }
-    public void editBook(Scanner sc, BookDTOList BDL)
+    public void editBook(Scanner sc, BookDTOList BDL,BookManageView BMV)
     {
         System.out.println("수정할 도서를 선택하십시오.");
-        int i = 1;
-        for(BookDTO book : BDL.getDTOList())
-        {
-            if( i %3 == 0)
-                System.out.printf("%d번 책 %s\n", i, book.getBookName());
-            else  System.out.printf("%d번 책 %s\t", i, book.getBookName());
-            i++;
-        }
+        BMV.threePerBook(BDL);
         System.out.println();
         int userInput;
         BookDTO book;
@@ -201,7 +194,7 @@ public class BookService
                             BMV.viewBookOne(bookDTO);
                             break;
                         case 3:
-                            editBook(sc, BDL);
+                            editBook(sc, BDL,BMV);
                             break;
                         case 4:
                             deleteBook(sc, BDL);

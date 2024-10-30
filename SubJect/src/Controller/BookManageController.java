@@ -75,7 +75,7 @@ public class BookManageController
                             bookManageView.viewBookAll(bookDTOList);
                             break;
                         case EDIT_BOOK:
-                            bookService.editBook(sc,bookDTOList);
+                            bookService.editBook(sc,bookDTOList,bookManageView);
                             break;
                         case EXIT_MENU:
                             currentBMSState = BMSState.OUT;
