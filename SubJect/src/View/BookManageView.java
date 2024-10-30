@@ -40,7 +40,7 @@ public class BookManageView
 //            viewBookPublish(in);
 //            viewBookPrice(in);
         }
-        System.out.printf("출력한 총 출력 개수는 %d개 입니다.",i);
+        System.out.printf("출력한 총 출력 개수는 %d개 입니다.\n",i);
     }
     public void viewBookOne(BookDTO book)
     {

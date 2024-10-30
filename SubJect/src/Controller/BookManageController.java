@@ -1,5 +1,6 @@
 package Controller;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import DTO.BookDTOList;
@@ -45,27 +46,48 @@ public class BookManageController
                 case SELECT_MENU:
                     bookManageController.viewMenu();
                     System.out.print("원하시는 메뉴를 선택하여 주세요 !: ");
-                    int tem = sc.nextInt();
-                    currentMenu = Menus[tem-1];
-
+                    int temp;
+                    try {
+                        temp = sc.nextInt();
+                        sc.nextLine();
+                        currentMenu = Menus[temp - 1];
+                    }
+                    catch(InputMismatchException e)
+                    {
+                        sc.nextLine();
+                        System.out.println("잘못된 입력입니다.");
+                        continue;
+                    }
+                    catch(IndexOutOfBoundsException e)
+                    {
+                        sc.nextLine();
+                        System.out.println("잘못된 접근입니다.");
+                        continue;
+                    }
                     switch(currentMenu)
                     {
                         case ADD_BOOK:
                             bookService.newBook(sc,bookDTOList);
                         break;
-
-                        case CHECK_BOOK :
-                        case EDIT_BOOK:
-                        case DELETE_BOOK:
-//                            bookService.deleteBook(sc,bookDTOList);
-//                            currentBMSState = BMSState.VIEW_MENU;
                         case PRINT_BOOK:
 //                            bookManageView.viewBookAll(bookDTOList);
 //                            currentBMSState = BMSState.VIEW_MENU;
-                            bookService.bookSearch(sc,bookDTOList,tem,bookManageView);
-                        break;
+                            bookManageView.viewBookAll(bookDTOList);
+                            break;
+                        case EDIT_BOOK:
+                            bookService.editBook(sc,bookDTOList);
+                            break;
                         case EXIT_MENU:
                             currentBMSState = BMSState.OUT;
+                            break;
+                        case CHECK_BOOK :
+                        case DELETE_BOOK:
+//                            bookService.deleteBook(sc,bookDTOList);
+//                            currentBMSState = BMSState.VIEW_MENU;
+                            bookService.bookSearch(sc,bookDTOList,temp,bookManageView);
+                            break;
+                        default:
+                            System.out.println("잘못된 입력입니다.");
                     }
                     break;
                 case OUT:
@@ -93,10 +115,6 @@ public class BookManageController
             else
                 System.out.println();
         }
-    }
-    private void newBook()
-    {
-
     }
 
 }
