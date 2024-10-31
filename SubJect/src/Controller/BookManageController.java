@@ -70,21 +70,41 @@ public class BookManageController
                             bookService.newBook(sc,bookDTOList);
                         break;
                         case CHECK_BOOK : // 2 조회
+                            if(bookDTOList.getBookDTOList().isEmpty())
+                            {
+                                System.out.println("도서가 없어 조회가 불가능합니다.");
+                                break;
+                            }
                             tmpBookDTO = bookService.bookMenuSelect(sc,bookDTOList,bookManageView);
                             if (tmpBookDTO != null) bookManageView.viewBookOne(tmpBookDTO);
                             else System.out.println("메뉴 선택으로 이동합니다.");
                             break;
                         case EDIT_BOOK: // 3 수정
+                            if(bookDTOList.getBookDTOList().isEmpty())
+                            {
+                                System.out.println("도서가 없어 수정이 불가능합니다.");
+                                break;
+                            }
                             tmpBookDTO = bookService.bookMenuSelect(sc,bookDTOList,bookManageView);
                             if (tmpBookDTO != null) bookService.editBook(sc,tmpBookDTO,bookDTOList);
                             else System.out.println("메뉴 선택으로 이동합니다.");
                             break;
                         case DELETE_BOOK: // 4 삭제
+                            if(bookDTOList.getBookDTOList().isEmpty())
+                            {
+                                System.out.println("도서가 없어 삭제가 불가능합니다.");
+                                break;
+                            }
                             tmpBookDTO = bookService.bookMenuSelect(sc,bookDTOList,bookManageView);
                             if (tmpBookDTO != null) bookService.deleteBook(bookDTOList,tmpBookDTO);
                             else System.out.println("메뉴 선택으로 이동합니다.");
                             break;
                         case PRINT_BOOK: // 5 출력
+                            if(bookDTOList.getBookDTOList().isEmpty())
+                            {
+                                System.out.println("도서가 없어 출력이 불가능합니다.");
+                                break;
+                            }
                             bookManageView.viewBookAll(bookDTOList.getBookDTOList());
                             break;
                         case EXIT_MENU: // 6 종료

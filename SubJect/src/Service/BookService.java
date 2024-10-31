@@ -67,7 +67,9 @@ public class BookService
          if (!isDeleted)
          {
              System.out.println("도서를 찾을 수 없어 삭제에 실패하였습니다.");
+             return;
          }
+        System.out.println("삭제를 완료했습니다.");
     }
     // 수정하기 (재귀가능)
     public void editBook(Scanner sc, BookDTO bookDTO,BookDTOList bookDTOList)
@@ -81,6 +83,7 @@ public class BookService
         String tmpPublisher = bookDTO.getPublisher();
         int tmpPrice = bookDTO.getPrice();
 
+        // 책 속성 출력해서 뭐 수정할지 정하게 하기
         for(int j = 0; j < bookDTO.bookAttribute.length; j++)
         {
             System.out.printf("%d. %s\t\t", j+1, bookDTO.bookAttribute[j]);
@@ -169,6 +172,7 @@ public class BookService
         {
             System.out.println("잘못된 입력입니다.");
         }
+        // 재귀하는 부분
         if      (userInput == 1) editBook(sc,bookDTO,bookDTOList);
         else if (userInput == 2) System.out.println("메뉴로 이동합니다.");
         else    System.out.println("잘못된 입력입니다. 메뉴로 이동합니다.");

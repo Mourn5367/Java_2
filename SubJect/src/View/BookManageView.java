@@ -18,7 +18,7 @@ public class BookManageView
     }
     public void viewBookPublish(BookDTO book)
     {
-        System.out.printf("이 도서의 출판사는 %s 입니다.\n",book.getAuthor());
+        System.out.printf("이 도서의 출판사는 %s 입니다.\n",book.getPublisher());
     }
     public void viewBookPrice(BookDTO book)
     {
