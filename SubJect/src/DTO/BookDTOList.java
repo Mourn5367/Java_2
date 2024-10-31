@@ -12,6 +12,7 @@ public class BookDTOList
     {
         DTOList = new ArrayList<BookDTO>();
         DTOList.add(new BookDTO(1111111111111L,"이방인","알베르 카뮈","가나다",10000));
+        DTOList.add(new BookDTO(1111111111112L,"이방인","알베르 카뮈","가나다",10000));
         DTOList.add(new BookDTO(2222222222222L,"신곡","단테","라마바",15000));
         DTOList.add(new BookDTO(3333333333333L,"눈먼 자들의 도시","주제 사라마구","사아자",17000));
         DTOList.add(new BookDTO(4444444444444L,"죄와 벌","표도르 도스토옙스키","차카타",13000));
@@ -30,7 +31,5 @@ public class BookDTOList
             this.DTOList.add(DTO);
         }
     }
-    public List<BookDTO> getDTOList() {
-        return DTOList;
-    }
+    public List<BookDTO> getDTOList() {return DTOList;}
 }

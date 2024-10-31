@@ -15,9 +15,7 @@ public class BookDTO
         return bookAttribute[index];
     }
 
-    public long getISBN() {
-        return ISBN;
-    }
+    public long getISBN() {return ISBN;}
 
     public void setBookName(String bookName) {
         this.bookName = bookName;
@@ -51,7 +49,6 @@ public class BookDTO
         return price;
     }
 
-    // 나중에 여기 서비스에서 입력 다 하고 입력값 받는거 적기
     public BookDTO(long ISBN, String bookName, String author, String publisher, int price)
     {
         this.ISBN = ISBN;

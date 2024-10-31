@@ -10,7 +10,7 @@ import View.BookManageView;
 
 public class BookManageController
 {
-    private final String[] initMenu =
+    public final String[] initMenu =
             {"도서정보추가","조회","수정/변경","삭제","출력","종료"};
     private enum MENU
     {
