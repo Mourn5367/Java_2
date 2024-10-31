@@ -6,11 +6,11 @@ import java.util.List;
 public class BookDTOList
 {
 
-    private List<BookDTO> DTOList;
+    private ArrayList<BookDTO> DTOList;
 
     public BookDTOList()
     {
-        DTOList = new ArrayList<BookDTO>();
+        DTOList = new ArrayList<>();
         DTOList.add(new BookDTO(1111111111111L,"이방인","알베르 카뮈","가나다",10000));
         DTOList.add(new BookDTO(1111111111112L,"이방인","알베르 카뮈","가나다",10000));
         DTOList.add(new BookDTO(2222222222222L,"신곡","단테","라마바",15000));
@@ -31,5 +31,5 @@ public class BookDTOList
             this.DTOList.add(DTO);
         }
     }
-    public List<BookDTO> getDTOList() {return DTOList;}
+    public ArrayList<BookDTO> getDTOList() {return DTOList;}
 }

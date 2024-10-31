@@ -38,11 +38,13 @@ public class BookManageController
         MENU[] Menus = MENU.values();
         MENU currentMenu;
         System.out.println("===도서관리시스템에 접속하였습니다.===");
+        BookDTO tmpBookDTO;
+
+
         while(true)
         {
             switch(currentBMSState)
             {
-
                 case SELECT_MENU:
                     bookManageController.viewMenu();
                     System.out.print("원하시는 메뉴를 선택하여 주세요 !: ");
@@ -69,25 +71,30 @@ public class BookManageController
                         case ADD_BOOK:
                             bookService.newBook(sc,bookDTOList);
                         break;
-                        case PRINT_BOOK:
-//                            bookManageView.viewBookAll(bookDTOList);
-//                            currentBMSState = BMSState.VIEW_MENU;
-                            bookManageView.viewBookAll(bookDTOList);
+                        case CHECK_BOOK :
+                            tmpBookDTO = bookService.bookMenuSelect(sc,bookDTOList,bookManageView);
+                            if (tmpBookDTO != null) bookManageView.viewBookOne(tmpBookDTO);
+                            else System.out.println("메뉴 선택으로 이동합니다.");
                             break;
                         case EDIT_BOOK:
-                            bookService.editBook(sc,bookDTOList,bookManageView);
+                            tmpBookDTO = bookService.bookMenuSelect(sc,bookDTOList,bookManageView);
+                            if (tmpBookDTO != null) bookService.editBook(sc,tmpBookDTO);
+                            else System.out.println("메뉴 선택으로 이동합니다.");
+                            break;
+                        case DELETE_BOOK:
+                            tmpBookDTO = bookService.bookMenuSelect(sc,bookDTOList,bookManageView);
+                            if (tmpBookDTO != null) bookService.deleteBook(sc,bookDTOList,tmpBookDTO);
+                            else System.out.println("메뉴 선택으로 이동합니다.");
+                            break;
+                        case PRINT_BOOK:
+                            bookManageView.viewBookAll(bookDTOList.getDTOList());
                             break;
                         case EXIT_MENU:
                             currentBMSState = BMSState.OUT;
                             break;
-                        case CHECK_BOOK :
-                        case DELETE_BOOK:
-//                            bookService.deleteBook(sc,bookDTOList);
-//                            currentBMSState = BMSState.VIEW_MENU;
-                            bookService.bookSearch(sc,bookDTOList,temp,bookManageView);
-                            break;
                         default:
                             System.out.println("잘못된 입력입니다.");
+
                     }
                     break;
                 case OUT:
@@ -95,13 +102,6 @@ public class BookManageController
                     return;
             }
         }
-
-//        BookDTO tmp = bs.newBook(sc);
-//        if (tmp == null)
-//        {
-//            System.out.println("asd");
-//        }
-//        else { bookDTOList.appendBookDTO(tmp);}
 
     }
     private void viewMenu()
