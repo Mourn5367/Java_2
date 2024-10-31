@@ -35,9 +35,10 @@ public class BookService
                         }
                         break;
                     }
-                    case 1: tmpBookDTO.setBookName(sc.nextLine()); break;
-                    case 2: tmpBookDTO.setAuthor(sc.nextLine()); break;
-                    case 3: tmpBookDTO.setPublisher(sc.nextLine()); break;
+                    // .replaceAll("\\s+$","")) 뒤에 공백 다 제거해준다고 함.
+                    case 1: tmpBookDTO.setBookName(sc.nextLine().replaceAll("\\s+$","")); break;
+                    case 2: tmpBookDTO.setAuthor(sc.nextLine().replaceAll("\\s+$","")); break;
+                    case 3: tmpBookDTO.setPublisher(sc.nextLine().replaceAll("\\s+$","")); break;
                     case 4:
                     {
                         tmpBookDTO.setPrice(sc.nextInt());
@@ -68,16 +69,18 @@ public class BookService
              System.out.println("도서를 찾을 수 없어 삭제에 실패하였습니다.");
          }
     }
-    // 수정하기 중간저장 없음, 다 완벽히 할때까지 못빠져나감.
-    public void editBook(Scanner sc, BookDTO bookDTO)
+    // 수정하기 (재귀가능)
+    public void editBook(Scanner sc, BookDTO bookDTO,BookDTOList bookDTOList)
     {
         int userInput;
         System.out.println("수정할 목록을 선택하시오.");
+        // 기존 내용 보관하고 에러없이 다 입력한다면 입력 받은 값으로 수정.
         long tmpISBN = bookDTO.getISBN();
         String tmpBookName = bookDTO.getBookName();
         String tmpAuthor = bookDTO.getAuthor();
         String tmpPublisher = bookDTO.getPublisher();
         int tmpPrice = bookDTO.getPrice();
+
         for(int j = 0; j < bookDTO.bookAttribute.length; j++)
         {
             System.out.printf("%d. %s\t\t", j+1, bookDTO.bookAttribute[j]);
@@ -103,19 +106,37 @@ public class BookService
                         case 1:
                             tmpISBN = sc.nextLong();
                             sc.nextLine();
+                            for (BookDTO book: bookDTOList.getBookDTOList())
+                            {
+                                if(book.getISBN() == tmpISBN && book != bookDTO)
+                                {
+                                    System.out.println("중복된 ISBN입니다. 메뉴로 이동합니다.");
+                                    return;
+                                }
+                            }
+                            if (bookDTO.getISBN() == tmpISBN)
+                                System.out.println("기존과 같은 ISBN입니다.");
                             break;
                         case 2:
-                            tmpBookName = sc.nextLine();
+                            tmpBookName = sc.nextLine().replaceAll("\\s+$","");
+                            if (bookDTO.getBookName().equals(tmpBookName))
+                                System.out.println("기존과 같은 제목입니다.");
                             break;
                         case 3:
-                            tmpAuthor = sc.nextLine();
+                            tmpAuthor = sc.nextLine().replaceAll("\\s+$","");
+                            if (bookDTO.getAuthor().equals(tmpBookName))
+                                System.out.println("기존과 같은 작가입니다.");
                             break;
                         case 4:
-                            tmpPublisher = sc.nextLine();
+                            tmpPublisher = sc.nextLine().replaceAll("\\s+$","");
+                            if (bookDTO.getPublisher().equals(tmpPublisher))
+                                System.out.println("기존과 같은 출판사입니다.");
                             break;
                         case 5:
                             tmpPrice = sc.nextInt();
                             sc.nextLine();
+                            if (bookDTO.getPrice() == tmpPrice)
+                                System.out.println("기존과 같은 가격입니다.");
                             break;
                     }
                 }
@@ -140,6 +161,17 @@ public class BookService
         bookDTO.setPublisher(tmpPublisher);
         bookDTO.setPrice(tmpPrice);
         System.out.println("수정이 완료되었습니다.");
+        System.out.println("1. 수정 계속하기\t2. 중단");
+        try {
+            userInput = sc.nextInt();
+        }
+        catch (InputMismatchException e)
+        {
+            System.out.println("잘못된 입력입니다.");
+        }
+        if      (userInput == 1) editBook(sc,bookDTO,bookDTOList);
+        else if (userInput == 2) System.out.println("메뉴로 이동합니다.");
+        else    System.out.println("잘못된 입력입니다. 메뉴로 이동합니다.");
     }
 
     // 도서 이름/ISBN 검색 방법과 도서관리 시스템 전부다 출력해서 순번골라서 검색하는것 중 고르기.
@@ -278,10 +310,10 @@ public class BookService
             else if (tmpBookDTOList.isEmpty())
             {
                 if (answer == 1) {
-                    System.out.printf("도서정보시스템에는 도서 이름이 %s 도서은 없습니다.", bookName);
+                    System.out.printf("도서정보시스템에는 도서 이름이 %s 도서는 없습니다.", bookName);
                     return null;
                 } else if (answer == 2) {
-                    System.out.printf("도서정보시스템에는 ISBN이 %d인 도서은 없습니다.", bookISBN);
+                    System.out.printf("도서정보시스템에는 ISBN이 %d인 도서는 없습니다.", bookISBN);
                     return null;
                 }
             }

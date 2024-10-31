@@ -9,6 +9,7 @@ public class BookDTOList
 
     public BookDTOList()
     {
+        // 기본 내장 책 생성
         bookDTOList = new ArrayList<>();
         bookDTOList.add(new BookDTO(1111111111111L,"이방인","알베르 카뮈","가나다",10000));
         bookDTOList.add(new BookDTO(1111111111112L,"이방인","알베르 카뮈","라라라",12000));

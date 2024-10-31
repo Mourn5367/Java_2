@@ -24,7 +24,6 @@ public class BookManageController
     private enum BMSState
     {
         SELECT_MENU,
-        PROCESSING_MENU,
         OUT,
     }
     public static void main(String[] args)
@@ -77,7 +76,7 @@ public class BookManageController
                             break;
                         case EDIT_BOOK: // 3 수정
                             tmpBookDTO = bookService.bookMenuSelect(sc,bookDTOList,bookManageView);
-                            if (tmpBookDTO != null) bookService.editBook(sc,tmpBookDTO);
+                            if (tmpBookDTO != null) bookService.editBook(sc,tmpBookDTO,bookDTOList);
                             else System.out.println("메뉴 선택으로 이동합니다.");
                             break;
                         case DELETE_BOOK: // 4 삭제
@@ -100,8 +99,8 @@ public class BookManageController
                     return;
             }
         }
-
     }
+
     private void viewMenu()
     {
         int count = 0;
