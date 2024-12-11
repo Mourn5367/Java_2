@@ -25,6 +25,9 @@ public class MainFrame extends JFrame
         OrderInfoView orderInfoView = new OrderInfoView();
         add(orderInfoView,"Center");
 
+        // 나가기 버튼 누르면 프로그램 꺼지기
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+
         setVisible(true);
 
     }
